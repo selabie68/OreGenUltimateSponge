@@ -1,4 +1,4 @@
-#OreGenUltimate
+# OreGenUltimate
 
 Plugin for Minecraft Sponge Servers that generates ore when lava mixes with water and would usually generate cobblestone.
 
