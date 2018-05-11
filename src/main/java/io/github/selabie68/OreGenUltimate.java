@@ -30,7 +30,7 @@ import org.spongepowered.api.plugin.Plugin;
 
 import java.io.File;
 
-@Plugin(id = "oregenultimate", name = "OreGenUltimate", version = "0.0.1")
+@Plugin(id = "oregenultimate", name = "OreGenUltimate", version = "0.0.2", description = "Plugin for Minecraft Sponge Servers that generates ore when lava mixes with water and would usually generate cobblestone.")
 public class OreGenUltimate {
     @Inject
     public Logger logger;
