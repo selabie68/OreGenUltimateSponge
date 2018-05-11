@@ -21,9 +21,9 @@ import io.github.selabie68.OreGenUltimate;
 import io.github.selabie68.utils.RandomCollection;
 import org.spongepowered.api.block.BlockSnapshot;
 import org.spongepowered.api.block.BlockType;
+import org.spongepowered.api.block.BlockTypes;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.block.ChangeBlockEvent;
-import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.event.cause.EventContextKeys;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
@@ -53,14 +53,14 @@ public class BlockListener {
     @Listener
     public void onCobbleGen(ChangeBlockEvent.Modify e) {
         BlockSnapshot bto = e.getTransactions().get(0).getOriginal();
+        boolean isLiquidMix = e.getContext().containsKey(EventContextKeys.LIQUID_MIX);
 
-        Cause cause = e.getCause();
-
-        if (cause.getContext().containsKey(EventContextKeys.LIQUID_MIX) && bto.getLocation().isPresent()) {
-            Location<World> ourBlock = bto.getLocation().get();
-            OreGenUltimate.get().logger.info("We generated: " + ourBlock.getBlockType());
+        if (isLiquidMix && bto.getLocation().isPresent() && bto.getState().getType() == BlockTypes.FLOWING_LAVA) {
             e.setCancelled(true);
-            ourBlock.setBlockType(this.randomiser.next());
+            Location<World> ourBlock = bto.getLocation().get();
+            BlockType newBlock = this.randomiser.next();
+            OreGenUltimate.get().logger.info("We generated: " + newBlock.getName());
+            ourBlock.setBlockType(newBlock);
         }
     }
 }
